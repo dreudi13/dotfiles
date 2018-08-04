@@ -1,0 +1,10 @@
+[user]
+	name = dreudi13
+	email = jason.tubiana@gmail.com
+[push]
+	default = matching
+[core]
+	editor = vim
+	excludesfile = /home/jason/.gitignore_global
+[http]
+[http]
