@@ -8,8 +8,9 @@
 "============================================
 " configuration -----------------------------
 "============================================
-execute pathogen#infect('extensions/{}')
+execute pathogen#infect()
 set nocompatible "Bye Vi :)!
+set wildmode=list:full
 set wildmenu
 
 " This line should not be removed as it ensures that various options are
@@ -35,7 +36,7 @@ syntax on
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 set background=dark
-colors gruvbox
+colors Tomorrow-Night
 set t_Co=256
 
 " watch for changes in your .vimrc and automatically reload the config.
@@ -62,15 +63,16 @@ set showcmd		" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
 set ignorecase		" Do case insensitive matching
 set smartcase		" Do smart case matching
-"set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden		" Hide buffers when they are abandoned
+set incsearch		" Incremental search
+set autowrite		" Automatically save before commands like :next and :make
+set hidden		" Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
 
 " Easier buffer switching
-set wildchar=<Tab> wildmenu wildmode=full
+set wildchar=<C-e> wildmenu wildmode=full
 set wildcharm=<C-Z>
 nnoremap <Tab> :b <C-Z>
+nnoremap <C><Right-Arrow> :wl <CR>
 
 function! BufSel(pattern)
   let bufcount = bufnr("$")
@@ -114,9 +116,14 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set smarttab
-
 set smartindent
 set autoindent
+
+" folding
+set foldmethod=indent   
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 
 " Set to autoread when a file is changed from the outside
 set autoread
@@ -133,19 +140,25 @@ let mapleader = ","
 set nobackup
 set noswapfile
 
-" Set to autoread when a file is changed from the outside
-set autoread
-
 "============================================
 " plugins
 "============================================
+"============================================
+" ctrlp -------------------------------------
+"============================================
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 0
+set wildignore+=*/tmp/*,*/vendor/*,*/node_modules/*,*.so,*.swp,*.zip,*/bower_components/*
+"
 "============================================
 " airline -----------------------------------
 "============================================
 set laststatus=2
 set ttimeoutlen=50
-set guifont=Source\ Code\ Pro\ for\ Powerline:h15:cANSI
-let g:airline_theme='ubaryd'
+"set guifont=Source\ Code\ Pro\ for\ Powerline:h15:cANSI
+set guifont=Monaco\ 12
+let g:airline_theme='luna'
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tabline#enabled = 1
@@ -157,49 +170,11 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-" let g:airline_symbols.space = "\ua0"
 
-" unicode symbols
-"let g:airline_left_sep = '»'
-"let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-"let g:airline_right_sep = '◀'
-"let g:airline_symbols.linenr = '␊'
-"let g:airline_symbols.linenr = '␤'
-"let g:airline_symbols.linenr = '¶'
-"let g:airline_symbols.branch = '⎇'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.paste = 'Þ'
-"let g:airline_symbols.paste = '∥'
-"let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = gitbranch#name()
-"let g:airline_symbols.branch = %{FugitiveStatusline()}
+let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.readonly = ''
-
-" Change airline positions
-function! AirlineInit()
-  let g:airline_section_b = airline#section#create(['', ''])
-  let g:airline_section_x = airline#section#create(['hunks'])
-  let g:airline_section_y = '%y'
-  let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-
-"============================================
-" ctrlp -------------------------------------
-"============================================
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 0
-set wildignore+=*/tmp/*,*/vendor/*,*/node_modules/*,*.so,*.swp,*.zip
 
 "============================================
 " promptline --------------------------------
@@ -210,8 +185,8 @@ set wildignore+=*/tmp/*,*/vendor/*,*/node_modules/*,*.so,*.swp,*.zip
 " nerdtree ----------------------------------
 "============================================
 map <F2> :NERDTreeToggle<CR>
-"let g:NERDTreeDirArrowExpandable = '▸'
-"let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeIndicatorMap = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -223,3 +198,57 @@ let g:NERDTreeIndicatorMap = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+
+"============================================
+" ultisnips ---------------------------------
+"============================================
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsSnippetsDir = "~/.vim/extensions/my-ultisnips"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"============================================
+" tagbar ------------------------------------
+"============================================
+nmap <F8> :TagbarToggle<CR>
+
+"============================================
+" phpactor ----------------------------------
+"============================================
+" configuration
+autocmd FileType php setlocal omnifunc=phpactor#Complete
+let g:phpactorPhpBin = 'php'
+let g:phpactorBranch = 'master'
+let g:phpactorOmniError = v:true
+" key map                                    
+" Include use statement
+nmap <Leader>u :call phpactor#UseAdd()<CR>
+" Invoke the context menu
+nmap <Leader>mm :call phpactor#ContextMenu()<CR>
+" Invoke the navigation menu
+nmap <Leader>nn :call phpactor#Navigate()<CR>
+" Goto definition of class or class member under the cursor
+nmap <Leader>o :call phpactor#GotoDefinition()<CR>
+" Transform the classes in the current file
+nmap <Leader>tt :call phpactor#Transform()<CR>
+" Generate a new class (replacing the current file)
+nmap <F3> :call phpactor#ClassNew()<CR>
+" Extract expression (normal mode)
+nmap <silent><Leader>ee :call phpactor#ExtractExpression(v:false)<CR>
+" Extract method from selection
+vmap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
+" Extract expression from selection
+vmap <silent><Leader>ee :<C-U>call phpactor#ExtractMethod(v:true)<CR>
+"
+"============================================
+" syntastic ---------------------------------
+"============================================
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+

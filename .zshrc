@@ -14,7 +14,7 @@ DEFAULT_USER="jason"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="dreudi13"
-ZSH_THEME="spaceship"
+ZSH_THEME="xxf"
 SPACESHIP_PACKAGE_SHOW=false
 SPACESHIP_NODE_SHOW=false
 SPACESHIP_PHP_SHOW=false
@@ -122,3 +122,4 @@ alias crdir="create_directories.py"
 alias eadi="easy_dir.py"
 
 alias plab="cd ~/AppLab/php_lab"
+alias jlab="cd ~/AppLab/js_lab"
