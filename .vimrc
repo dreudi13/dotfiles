@@ -24,19 +24,10 @@ set wildmenu
 " defaults.vim from being loaded.
 " let g:skip_defaults_vim = 1
 
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
-
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
 syntax on
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-set background=dark
-colors Tomorrow-Night
+"set background=light
+colors Tomorrow-Night "gruvbox 
 set t_Co=256
 
 " watch for changes in your .vimrc and automatically reload the config.
@@ -48,13 +39,13 @@ augroup END
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
 if has("autocmd")
-  filetype plugin indent on
+    filetype plugin indent on
 endif
 
 " The following are commented out as they cause vim to behave a lot
@@ -69,45 +60,48 @@ set hidden		" Hide buffers when they are abandoned
 set mouse=a		" Enable mouse usage (all modes)
 
 " Easier buffer switching
-set wildchar=<C-e> wildmenu wildmode=full
-set wildcharm=<C-Z>
-nnoremap <Tab> :b <C-Z>
-nnoremap <C><Right-Arrow> :wl <CR>
+"set wildchar=<Tab> wildmenu wildmode=full
+"set wildcharm=<C-Z>
+"nnoremap <Tab> :b <C-Z>
+" nnoremap <C><Right-Arrow> :wl <CR>
 
 function! BufSel(pattern)
-  let bufcount = bufnr("$")
-  let currbufnr = 1
-  let nummatches = 0
-  let firstmatchingbufnr = 0
-  while currbufnr <= bufcount
-    if(bufexists(currbufnr))
-      let currbufname = bufname(currbufnr)
-      if(match(currbufname, a:pattern) > -1)
-        echo currbufnr . ": ". bufname(currbufnr)
-        let nummatches += 1
-        let firstmatchingbufnr = currbufnr
-      endif
+    let bufcount = bufnr("$")
+    let currbufnr = 1
+    let nummatches = 0
+    let firstmatchingbufnr = 0
+    while currbufnr <= bufcount
+        if(bufexists(currbufnr))
+            let currbufname = bufname(currbufnr)
+            if(match(currbufname, a:pattern) > -1)
+                echo currbufnr . ": ". bufname(currbufnr)
+                let nummatches += 1
+                let firstmatchingbufnr = currbufnr
+            endif
+        endif
+        let currbufnr = currbufnr + 1
+    endwhile
+    if(nummatches == 1)
+        execute ":buffer ". firstmatchingbufnr
+    elseif(nummatches > 1)
+        let desiredbufnr = input("Enter buffer number: ")
+        if(strlen(desiredbufnr) != 0)
+            execute ":buffer ". desiredbufnr
+        endif
+    else
+        echo "No matching buffers"
     endif
-    let currbufnr = currbufnr + 1
-  endwhile
-  if(nummatches == 1)
-    execute ":buffer ". firstmatchingbufnr
-  elseif(nummatches > 1)
-    let desiredbufnr = input("Enter buffer number: ")
-    if(strlen(desiredbufnr) != 0)
-      execute ":buffer ". desiredbufnr
-    endif
-  else
-    echo "No matching buffers"
-  endif
 endfunction
+
+nnoremap <c-Right> :bn<cr>
+nnoremap <c-Left> :bp<cr>
 
 "Bind the BufSel() function to a user-command
 command! -nargs=1 Bs :call BufSel("<args>")
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
+    source /etc/vim/vimrc.local
 endif
 
 " Tab Settings
@@ -140,6 +134,16 @@ let mapleader = ","
 set nobackup
 set noswapfile
 
+" Navigate by display line
+noremap j gj
+noremap k gk
+
+" Switch display split
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+
 "============================================
 " plugins
 "============================================
@@ -150,13 +154,13 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 0
 set wildignore+=*/tmp/*,*/vendor/*,*/node_modules/*,*.so,*.swp,*.zip,*/bower_components/*
-"
+
 "============================================
 " airline -----------------------------------
 "============================================
 set laststatus=2
 set ttimeoutlen=50
-"set guifont=Source\ Code\ Pro\ for\ Powerline:h15:cANSI
+set guifont=Source\ Code\ Pro\ for\ Powerline:h15:cANSI
 set guifont=Monaco\ 12
 let g:airline_theme='luna'
 let g:airline#extensions#hunks#enabled=0
@@ -174,12 +178,11 @@ endif
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-let g:airline_symbols.readonly = ''
 
 "============================================
 " promptline --------------------------------
 "============================================
-"let g:promptline_theme = 'jelly'
+let g:promptline_theme = 'jelly'
 
 "============================================
 " nerdtree ----------------------------------
@@ -187,26 +190,33 @@ let g:airline_symbols.readonly = ''
 map <F2> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-let g:NERDTreeIndicatorMap = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+let g:NERDTreeIndicatorMapCustom = {
+            \ "Modified"  : "✹",
+            \ "Staged"    : "✚",
+            \ "Untracked" : "✭",
+            \ "Renamed"   : "➜",
+            \ "Unmerged"  : "═",
+            \ "Deleted"   : "✖",
+            \ "Dirty"     : "✗",
+            \ "Clean"     : "✔︎",
+            \ "Unknown"   : "?"
+            \ }
 
 "============================================
 " ultisnips ---------------------------------
 "============================================
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsSnippetsDir = "~/.vim/extensions/my-ultisnips"
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsEditSplit="normal" 
+let g:UltiSnipsSnippetsDir = "~/.vim/extensions/my-ultisnips/"
+let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"============================================
+" you complete me ---------------------------
+"============================================
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
 
 "============================================
 " tagbar ------------------------------------
@@ -221,17 +231,16 @@ autocmd FileType php setlocal omnifunc=phpactor#Complete
 let g:phpactorPhpBin = 'php'
 let g:phpactorBranch = 'master'
 let g:phpactorOmniError = v:true
-" key map                                    
 " Include use statement
 nmap <Leader>u :call phpactor#UseAdd()<CR>
 " Invoke the context menu
-nmap <Leader>mm :call phpactor#ContextMenu()<CR>
+nmap <F4> :call phpactor#ContextMenu()<CR>
 " Invoke the navigation menu
 nmap <Leader>nn :call phpactor#Navigate()<CR>
 " Goto definition of class or class member under the cursor
 nmap <Leader>o :call phpactor#GotoDefinition()<CR>
 " Transform the classes in the current file
-nmap <Leader>tt :call phpactor#Transform()<CR>
+nmap <F5> :call phpactor#Transform()<CR>
 " Generate a new class (replacing the current file)
 nmap <F3> :call phpactor#ClassNew()<CR>
 " Extract expression (normal mode)
@@ -239,8 +248,10 @@ nmap <silent><Leader>ee :call phpactor#ExtractExpression(v:false)<CR>
 " Extract method from selection
 vmap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
 " Extract expression from selection
-vmap <silent><Leader>ee :<C-U>call phpactor#ExtractMethod(v:true)<CR>
-"
+"vmap <silent><Leader>ee :<C-U>call phpactor#ExtractMethod(v:true)<CR>
+" Invoke the navigation menu
+nmap <Leader>h :call phpactor#Hover() <CR>
+
 "============================================
 " syntastic ---------------------------------
 "============================================
@@ -252,3 +263,36 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+"============================================
+" vcoolor -----------------------------------
+"============================================
+"let g:vcoolor_lowercase = 1
+"let g:vcoolor_disable_mappings = 1
+"let g:vcoolor_custom_picker = 'zenity --title "custom" --color-selection --show-palette --color '
+"let g:vcoolor_map = '<C-c>'
+"let g:vcool_ins_rgb_map = '<C-g>'        " Insert rgb color.
+"let g:vcool_ins_hsl_map = '<C-s>'        " Insert hsl color.
+"let g:vcool_ins_rgba_map = '<C-a>'        " Insert rgba color.
+
+"============================================
+" emmet -------------------------------------
+"============================================
+let g:user_emmet_leader_key='<C-e>'
+
+"============================================
+" pdv ---------------------------------------
+"============================================
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip" 
+nnoremap <buffer> <C-d> :call pdv#DocumentWithSnip()<CR>
+
+"============================================
+" easy align --------------------------------
+"============================================
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+nmap g= gaip=<CR>
+
+"============================================
+" css color --------------------------------
+"============================================
+let g:cssColorVimDoNotMessMyUpdatetime = 1

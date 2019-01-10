@@ -71,6 +71,7 @@ SPACESHIP_PHP_SHOW=false
 plugins=(
   git
   sudo
+  warhol
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -110,9 +111,7 @@ alias cs="./vendor/bin/phpcs"
 alias cbf="./vendor/bin/phpcbf"
 alias csf="./vendor/bin/php-cs-fixer"
 
-alias joyeux='cd ~/Projets/panda42/panda-joyeux'
-
-alias phac="phpactor"
+alias pac="phpactor"
 
 alias mys="mysql -uroot -pdreudi-13"
 
@@ -123,3 +122,13 @@ alias eadi="easy_dir.py"
 
 alias plab="cd ~/AppLab/php_lab"
 alias jlab="cd ~/AppLab/js_lab"
+
+alias api-generate-client="./node_modules/.bin/generate-api-platform-client"
+
+# Symfony Alias
+alias sf="bin/console"
+alias sfmigrate="sf doctrine:migrations:migrate"
+alias sfmigrate_d="sfmigrate --dry-run"
+alias sflex="composer req"
+alias sfentity="bin/console make:entity"
+alias sfserve="bin/console server:run"
