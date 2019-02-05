@@ -221,7 +221,10 @@ let g:ycm_key_list_previous_completion=[]
 "============================================
 " tagbar ------------------------------------
 "============================================
-nmap <F8> :TagbarToggle<CR>
+"nmap <F8> :TagbarToggle<CR>
+let g:tagbar_autoclose = 1
+let g:tagbar_autopreview = 1
+nmap <F8> :TagbarOpenAutoClose<CR>
 
 "============================================
 " phpactor ----------------------------------
@@ -293,6 +296,16 @@ xmap ga <Plug>(EasyAlign)
 nmap g= gaip=<CR>
 
 "============================================
-" css color --------------------------------
+" css color ---------------------------------
 "============================================
 let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+"============================================
+" vim php namespace -------------------------
+"============================================
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>

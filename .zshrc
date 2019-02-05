@@ -14,7 +14,7 @@ DEFAULT_USER="jason"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="dreudi13"
-ZSH_THEME="xxf"
+ZSH_THEME="agnoster"
 SPACESHIP_PACKAGE_SHOW=false
 SPACESHIP_NODE_SHOW=false
 SPACESHIP_PHP_SHOW=false
@@ -110,10 +110,11 @@ alias t="./vendor/bin/phpunit"
 alias cs="./vendor/bin/phpcs"
 alias cbf="./vendor/bin/phpcbf"
 alias csf="./vendor/bin/php-cs-fixer"
+alias phpspec="./vendor/bin/phpspec"
 
 alias pac="phpactor"
 
-alias mys="mysql -uroot -pdreudi-13"
+alias mys="mysql -u root -p"
 
 alias phps="php -S localhost:8000 -d display_errors=1"
 
