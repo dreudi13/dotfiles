@@ -20,8 +20,10 @@ set wildmenu
 syntax on
 
 set background=dark
-colors  Tomorrow-Night "gruvbox
 set t_Co=256
+" let base16colorspace=256  " Access colors present in 256 colorspace
+colors gruvbox "Tomorrow-Night
+" colors tomorrow-night
 
 " watch for changes in your .vimrc and automatically reload the config.
 augroup myvimrc
@@ -85,6 +87,8 @@ function! BufSel(pattern)
         echo "No matching buffers"
     endif
 endfunction
+
+nnoremap <c-w> :Kwbd<cr>
 
 nnoremap <c-Right> :bn<cr>
 nnoremap <c-Left> :bp<cr>

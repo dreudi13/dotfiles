@@ -2,5 +2,11 @@
 tags
 **/*.swp
 
+###> npm
+./node_modules
+
+###> composer
+./vendor
+
 ###> phpstorm
 .idea

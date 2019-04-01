@@ -14,7 +14,7 @@ DEFAULT_USER="jason"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="dreudi13"
-ZSH_THEME="agnoster"
+ZSH_THEME="muse"
 SPACESHIP_PACKAGE_SHOW=false
 SPACESHIP_NODE_SHOW=false
 SPACESHIP_PHP_SHOW=false
@@ -111,6 +111,7 @@ alias cs="./vendor/bin/phpcs"
 alias cbf="./vendor/bin/phpcbf"
 alias csf="./vendor/bin/php-cs-fixer"
 alias phpspec="./vendor/bin/phpspec"
+alias st="./vendor/bin/phpspec"
 
 alias pac="phpactor"
 
@@ -121,8 +122,9 @@ alias phps="php -S localhost:8000 -d display_errors=1"
 alias crdir="create_directories.py"
 alias eadi="easy_dir.py"
 
-alias plab="cd ~/AppLab/php_lab"
-alias jlab="cd ~/AppLab/js_lab"
+alias lab="cd ~/Lab/"
+alias labphp="cd ~/Lab//php/"
+alias sites="cd ~/Sites/"
 
 alias api-generate-client="./node_modules/.bin/generate-api-platform-client"
 
