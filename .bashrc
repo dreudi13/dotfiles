@@ -124,15 +124,6 @@ if [ -x /usr/bin/mint-fortune ]; then
      /usr/bin/mint-fortune
 fi
 
-# My Alias
-alias html='cd /var/www/html'
-alias dev='cd /var/www/html/dev'
-alias lab='cd /var/www/html/lab'
-alias fp='cd /var/www/html/lab/php/framework-php/'
-alias dd='cd /var/www/html/dev/dissident'
-alias br='cd /var/www/html/projects/blue-rabbit/application'
-alias pa1='html && cd projects/pand1'
-
 # DEFINING THE PROMPT
 # Couleurs pour le prompt
 DEFAULT="\e[0;00m"

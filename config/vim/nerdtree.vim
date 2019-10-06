@@ -13,4 +13,5 @@ let g:NERDTreeIndicatorMapCustom = {
             \ "Unknown"   : "?"
             \ }
 
-
+" Auto refresh the Nerdtree pane
+" autocmd BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p

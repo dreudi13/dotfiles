@@ -8,7 +8,7 @@ setopt correct
 DEFAULT_USER="jason"
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/jason/.oh-my-zsh
+export ZSH=/home/jason/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -31,7 +31,7 @@ SPACESHIP_PHP_SHOW=false
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -69,9 +69,10 @@ SPACESHIP_PHP_SHOW=false
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  sudo
-  warhol
+    wp-cli
+    git
+    sudo
+    warhol
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -111,7 +112,6 @@ alias cs="./vendor/bin/phpcs"
 alias cbf="./vendor/bin/phpcbf"
 alias csf="./vendor/bin/php-cs-fixer"
 alias phpspec="./vendor/bin/phpspec"
-alias st="./vendor/bin/phpspec"
 
 alias pac="phpactor"
 
@@ -125,8 +125,7 @@ alias eadi="easy_dir.py"
 alias lab="cd ~/Lab/"
 alias labphp="cd ~/Lab//php/"
 alias sites="cd ~/Sites/"
-
-alias api-generate-client="./node_modules/.bin/generate-api-platform-client"
+alias coc="cd ~/Lab/coalition-of-code"
 
 # Symfony Alias
 alias sf="bin/console"
@@ -135,3 +134,18 @@ alias sfmigrate_d="sfmigrate --dry-run"
 alias sflex="composer req"
 alias sfentity="bin/console make:entity"
 alias sfserve="bin/console server:run"
+alias api-generate-client="./node_modules/.bin/generate-api-platform-client"
+
+# Docker Alias
+alias docke="docker-compose exec"
+alias dockr="docker-compose run"
+alias dock="docker-compose"
+alias docks="docker-compose stop"
+alias dockd="docker-compose down"
+alias docku="docker-compose up"
+alias dockud="docker-compose up -d"
+alias dockb="docker-compose --build"
+alias dockub="docker-compose up --build"
+alias dockudb="docker-compose up -d --build"
+# Composer Container
+alias dock_composer="docker run --rm --interactive --tty --volume $PWD:/application --user $UID:$GID"

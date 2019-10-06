@@ -22,8 +22,7 @@ syntax on
 set background=dark
 set t_Co=256
 " let base16colorspace=256  " Access colors present in 256 colorspace
-colors gruvbox "Tomorrow-Night
-" colors tomorrow-night
+colorscheme gruvbox
 
 " watch for changes in your .vimrc and automatically reload the config.
 augroup myvimrc

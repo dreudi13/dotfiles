@@ -20,9 +20,9 @@ nmap <F3> :call phpactor#ClassNew()<CR>
 " Extract expression (normal mode)
 nmap <silent><Leader>ee :call phpactor#ExtractExpression(v:false)<CR>
 " Extract method from selection
-vmap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
+vmap <silent><Leader>em :call phpactor#ExtractMethod()<CR>
 " Extract expression from selection
-"vmap <silent><Leader>ee :<C-U>call phpactor#ExtractMethod(v:true)<CR>
+vmap <silent><Leader>el :call phpactor#ExtractMethod(v:true)<CR>
 " Invoke the navigation menu
 nmap <Leader>h :call phpactor#Hover() <CR>
 
